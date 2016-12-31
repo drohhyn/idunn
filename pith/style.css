@@ -2,7 +2,7 @@
 
 body {
 	background: url(background.png) repeat-x;
-	font: 18px/1.5em "proxima-nova", Helvetica, Arial, sans-serif;
+	font: 18px "proxima-nova", Helvetica, Arial, sans-serif;
 }
 
 a {	color: #069; }
@@ -94,4 +94,18 @@ input[type=checkbox] {
 
 .legend table {
 	border-spacing: 5px;
+}
+
+.container {
+	width: 600px;
+}
+
+#temp-value {
+	font-size: 12em;
+	float: left;
+}
+
+#humi-value {
+	font-size: 8em;
+	float: left;
 }

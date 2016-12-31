@@ -92,7 +92,9 @@
 <body>
 
 	<div id="header">
-		<h1 style="font-size: 130%;">Temperatur & Luftfeuchtigkeit</h1>
+		<a href="./current.php">
+			<h1 style="font-size: 1.4em;">Temperatur & Luftfeuchtigkeit</h1>
+		</a>
 	</div>
 
 	<div id="content">
