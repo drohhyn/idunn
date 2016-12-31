@@ -15,5 +15,5 @@ time_stamp=$(date "+%s")
 set -e
 set -u
 
-sqlite $path/pith.sl3 "INSERT INTO pith(datetime, temperature, humidity) VALUES ($time_stamp, $tempInnen, $humidInnen);"
+sqlite3 $path/pith.sl3 "INSERT INTO pith(datetime, temperature, humidity) VALUES ($time_stamp, $tempInnen, $humidInnen);"
 

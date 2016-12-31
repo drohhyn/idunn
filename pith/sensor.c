@@ -58,8 +58,20 @@ void read_dht11_data()
   // check for 40 bits (8bit x 5 ) and checksum (last byte)
   if ((j >= 40) && 
     (dht11_dat[4] == ((dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF)) ) {
+
+
+	float t, h;
+        h = (float)dht11_dat[0] * 256 + (float)dht11_dat[1];
+        h /= 10;
+        t = (float)(dht11_dat[2] & 0x7F)* 256 + (float)dht11_dat[3];
+        t /= 10.0;
+        if ((dht11_dat[2] & 0x80) != 0)  t *= -1;
+
+
+    printf("%.2f:%.2f", h, t );
+
     // Result (Humidity:Temperature)
-    printf("%d.%d:%d.%d", dht11_dat[0], dht11_dat[1], dht11_dat[2], dht11_dat[3]);
+    //printf("%d.%d:%d.%d", dht11_dat[0], dht11_dat[1], dht11_dat[2], dht11_dat[3]);
   }
   else
   {
