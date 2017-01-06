@@ -40,6 +40,7 @@ input[type=checkbox] {
 	position: relative;
 	width: 900px;
 	margin: auto;
+	text-align: right;
 }
 
 #header h2 {
@@ -98,14 +99,15 @@ input[type=checkbox] {
 
 .container {
 	width: 600px;
+	float: right;
 }
 
 #temp-value {
 	font-size: 12em;
-	float: left;
+	float: right;
 }
 
 #humi-value {
 	font-size: 8em;
-	float: left;
+	float: right;
 }

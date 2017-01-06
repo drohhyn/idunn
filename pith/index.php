@@ -5,6 +5,7 @@
 	<meta http-equiv="refresh" content="110">
 	<title>pith</title>
 	<link rel="shortcut icon" type="image/x-icon" href="pith.ico">
+	<link rel="manifest" href="manifest.json">
 	
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<link href="flot/ui/jquery-ui.css" rel="stylesheet" type="text/css">
@@ -90,10 +91,9 @@
 	</script>
 </head>
 <body>
-
 	<div id="header">
 		<a href="./current.php">
-			<h1 style="font-size: 1.4em;">Temperatur & Luftfeuchtigkeit</h1>
+			<h1 style="font-size: 1.5em;">Temperatur & Luftfeuchtigkeit</h1>
 		</a>
 	</div>
 
