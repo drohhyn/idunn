@@ -1,32 +1,26 @@
-<!doctype html>
-<html lang="de">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="refresh" content="110">
-<title>pith</title>
-<link rel="shortcut icon" type="image/x-icon" href="pith.ico">
-<link rel="manifest" href="manifest.json">
-
-<link href="style.css" rel="stylesheet" type="text/css">
-<link href="flot/ui/jquery-ui.css" rel="stylesheet" type="text/css">
-<link href="flot/jquery.timepicker.css" rel="stylesheet" type="text/css">
-<!--[if lte IE 8]><script type="text/javascript" src="flot/excanvas.min.js"></script><![endif]-->
-<script type="text/javascript"
-	src="flot/jquery.js"></script>
-<script type="text/javascript"
-	src="flot/ui/jquery-ui.js"></script>
-
-<script type="text/javascript"
-	src="flot/jquery.timepicker.js"></script>
-<script type="text/javascript"
-	src="flot/jquery.flot.js"></script>
-<script type="text/javascript"
-	src="flot/jquery.flot.time.js"></script>
-<script type="text/javascript">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="refresh" content="110">
+	<title>pith</title>
+	<link rel="shortcut icon" type="image/x-icon" href="pith.ico">
+	<link rel="manifest" href="manifest.json">
+	
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<link href="flot/ui/jquery-ui.css" rel="stylesheet" type="text/css">
+	<link href="flot/jquery.timepicker.css" rel="stylesheet" type="text/css">
+	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="flot/excanvas.min.js"></script><![endif]-->
+	<script language="javascript" type="text/javascript" src="flot/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="flot/ui/jquery-ui.js"></script>
+	
+	<script language="javascript" type="text/javascript" src="flot/jquery.timepicker.js"></script>
+	<script language="javascript" type="text/javascript" src="flot/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="flot/jquery.flot.time.js"></script>
+	<script type="text/javascript">
 	$(function() {
 		$("#datepicker").datepicker({dateFormat: "@", maxDate: 0, changeMonth: true});
-		/** $("#datepicker").attr("value",$.now()); */
+		$("#datepicker").attr("value",new Date().setHours(0,0,0,0));
 		$("#timepicker").timepicker({timeFormat: "H:i"});
 		var options = {
 			lines: 	{	show: true},
@@ -49,31 +43,32 @@
 		}).appendTo("body");
 
 		<?php
-// TODO: magic number 3600: timezone problem
-$startDate = ($_POST["datepicker"] / 1000) + strtotime("1970-01-01 " . $_POST["timepicker"] . "") + 3600;
+			#TODO: magic number 3600: timezone problem
+			$startDate = ($_POST["datepicker"]/1000)+strtotime("1970-01-01 ".$_POST["timepicker"]."")+3600;
 
-try {
-    $db = new PDO('sqlite:pith.sl3');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    $query = "SELECT * FROM (SELECT * FROM pith ORDER BY datetime DESC LIMIT 60) sub ORDER BY datetime ASC;";
-    if (isset($_POST["datepicker"])) {
-        $query = "SELECT * FROM (SELECT * FROM pith WHERE datetime > '" . $startDate . "' LIMIT 60) sub ORDER BY datetime ASC;";
-    }
-    $results = $db->query($query);
-    foreach ($results as $row) {
-        $points_temp .= "[" . ($row['datetime'] * 1000) . ", " . $row['temperature'] . "] , ";
-        $points_humi .= "[" . ($row['datetime'] * 1000) . ", " . $row['humidity'] . "] , ";
-    }
-    $var_temp = "var data_temp = [" . $points_temp . "];\n";
-    echo $var_temp;
-    $var_humi = "var data_humi = [" . $points_humi . "];\n";
-    echo $var_humi;
-} catch (PDOException $e) {
-    print "Error!: " . $e->getMessage() . "<br/>";
-    die();
-}
-?>
+			try {
+  				$db = new PDO('sqlite:pith.sl3');
+				$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				
+				$query = "SELECT * FROM (SELECT * FROM pith ORDER BY datetime DESC LIMIT 60) sub ORDER BY datetime ASC;";
+				if(isset($_POST["datepicker"]))
+				{
+					$query = "SELECT * FROM (SELECT * FROM pith WHERE datetime > '".$startDate."' LIMIT 60) sub ORDER BY datetime ASC;";
+				}
+				$results = $db->query($query);
+				foreach ($results as $row) {
+					$points_temp .= "[" . ($row['datetime']*1000) . ", " . $row['temperature'] . "] , ";
+					$points_humi .= "[" . ($row['datetime']*1000) . ", " . $row['humidity'] . "] , ";
+				}
+				$var_temp = "var data_temp = [" . $points_temp . "];\n";
+				echo $var_temp;
+				$var_humi = "var data_humi = [" . $points_humi . "];\n";
+                                echo $var_humi;
+			} catch (PDOException $e) {
+				print "Error!: " . $e->getMessage() . "<br/>";
+ 				die();
+			}
+		?>
 
 		$("#placeholder").bind("plothover", function (event, pos, item) {
  
@@ -97,24 +92,16 @@ try {
 </head>
 <body>
 	<div id="header">
-
-		<h1 style="font-size: 1.5em;">
-			<a href="./current.php">Temperatur &amp; Luftfeuchtigkeit</a>
-		</h1>
+		<a href="./current.php">
+			<h1 style="font-size: 1.5em;">Temperatur & Luftfeuchtigkeit</h1>
+		</a>
 	</div>
 
 	<div id="content">
 		<div class="demo-container">
 			<div id="placeholder" class="demo-placeholder"></div>
 		</div>
-		<span style="float: left;" id="legend"></span>
-		<form method="post" name="setterdatetime">
-			<span style="float: right;"> <input autocomplete="off"
-				readonly="readonly" type="text" name="datepicker" id="datepicker" /><input
-				type="text" value="12:00" name="timepicker" id="timepicker" /><input
-				type="submit" value="&gt;" />
-			</span>
-		</form>
-	</div>
+		<span style="float:left;" id="legend"></span>
+		<span style="float:right;"><form method="post" name="setterdatetime"><input autocomplete="off" readonly="true" type="text" name="datepicker" id="datepicker" /><input type="text" value="12:00" name="timepicker" id="timepicker" /><input type="submit" value="&gt;" /></form><span>
 </body>
 </html>
