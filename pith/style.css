@@ -98,16 +98,22 @@ input[type=checkbox] {
 }
 
 .container {
-	width: 600px;
+	width: 350px;
+	float: right;
+	font-size: smaller;
+}
+
+.temp-value {
+	font-size: 10em;
 	float: right;
 }
 
-#temp-value {
-	font-size: 12em;
-	float: right;
-}
-
-#humi-value {
+.humi-value {
 	font-size: 8em;
 	float: right;
 }
+
+.ext-weather {
+	float: left;
+}
+
