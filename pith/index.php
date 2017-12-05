@@ -26,7 +26,7 @@
 <script type="text/javascript">
 	$(function() {
 		$("#datepicker").datepicker({dateFormat: "@", maxDate: 0, changeMonth: true});
-		/** $("#datepicker").attr("value",$.now()); */
+		$("#datepicker").attr("value",new Date().setHours(0,0,0,0));
 		$("#timepicker").timepicker({timeFormat: "H:i"});
 		var options = {
 			lines: 	{	show: true},
