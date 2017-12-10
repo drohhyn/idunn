@@ -1,8 +1,9 @@
 <?php
+require_once 'config.php';
 header('Content-Type: application/json');
-
+print "{\"data\": ";
 try {
-	$db = new PDO('sqlite:pith.sl3');
+    $db = new PDO('sqlite:'.$CONFIG['db.path']);
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$query = "SELECT * FROM (SELECT * FROM pith ORDER BY datetime DESC LIMIT 3) sub ORDER BY datetime ASC;";
 	$sth = $db->prepare($query);
@@ -19,3 +20,4 @@ try {
 	die();
 }
 ?>
+}

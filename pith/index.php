@@ -1,3 +1,4 @@
+<?php require_once 'config.php';?>
 <!doctype html>
 <html lang="de">
 <head>
@@ -53,7 +54,7 @@
 $startDate = ($_POST["datepicker"] / 1000) + strtotime("1970-01-01 " . $_POST["timepicker"] . "") + 3600;
 
 try {
-    $db = new PDO('sqlite:pith.sl3');
+    $db = new PDO('sqlite:'.$CONFIG['db.path']);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     $query = "SELECT * FROM (SELECT * FROM pith ORDER BY datetime DESC LIMIT 60) sub ORDER BY datetime ASC;";
