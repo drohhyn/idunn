@@ -99,7 +99,7 @@ try {
 <body>
 	<div id="header">
 
-		<h1 style="font-size: 1.5em;">
+		<h1 class="headline-link">
 			<a href="./current.php">Temperatur &amp; Luftfeuchtigkeit</a>
 		</h1>
 	</div>
@@ -108,7 +108,7 @@ try {
 		<div class="demo-container">
 			<div id="placeholder" class="demo-placeholder"></div>
 		</div>
-		<span style="float: left;" id="legend"></span>
+		<span id="legend"></span>
 		<form method="post" name="setterdatetime">
 			<span style="float: right;"> <input autocomplete="off"
 				readonly="readonly" type="text" name="datepicker" id="datepicker" /><input

@@ -8,6 +8,10 @@ body {
 a {	color: #069; }
 a:hover { color: #28b; }
 
+h1.headline-link {
+	font-size: 1.5em;
+}
+
 h2 {
 	margin-top: 15px;
 	font: normal 32px "omnes-pro", Helvetica, Arial, sans-serif;
@@ -91,6 +95,10 @@ input[type=checkbox] {
 	height: 100%;
 	font-size: 14px;
 	line-height: 1.2em;
+}
+
+#legend {
+float: left;
 }
 
 .legend table {
